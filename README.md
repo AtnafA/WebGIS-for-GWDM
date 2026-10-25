@@ -10,7 +10,7 @@ __Capacity Building:__ The project is part of a broader effort involving differe
 __Project Outputs:__
 The AAWSA_gDB data access interface provides (Figure Below): Groundwater information basemap (water well data layer), Water chemistry basemap (water quality data layer), Custom Map Layer  and Report generation function. The module provides an integrated interactive single window WebGIS interface that utilized Web technology to access spatial and non-spatial data from database and publish groundwater location and its information over WebGIS map layer. Moreover, the module also provides various well information, water quality data and Custom Map Layer (User demand based processed map layer) through interactive visualization map interface. This module serves as decision-support tools for a wide range of stakeholders in AAWSA, from managers, decision makers to water management professionals.<br>
 __Output:__
-
+<img width="1832" height="870" alt="image" src="https://github.com/user-attachments/assets/a3be996a-6e66-40e8-8669-c43de5933329" />
 
 __Water Well Data Layer:__
 <img width="1912" height="852" alt="image" src="https://github.com/user-attachments/assets/326ef225-ff5e-4b4a-956f-fa603e46115c" />
