@@ -1,0 +1,63 @@
+@charset "ISO-8859-1";
+/* Loader Wrapper styles to cover the whole screen */
+#loader-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #fff; /* White background */
+    z-index: 9999; /* High z-index to be on top of all content */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* The actual spinner animation */
+.loader {
+    border: 3.25px solid #f3f3f3; /* Light grey */
+    border-top: 3.25px solid #3498db; /* Blue spinner color */
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    animation: spin 1.5s linear infinite;
+}
+#map-loading-spinner{
+	display: none; /* Hidden by default */
+    position: absolute;
+    top: 3%;
+    left: 12.70%;
+    width: 60.50%;
+    height: 90%;
+    z-index: 9999; /* Sit on top of map */
+    background-color: rgba(255, 255, 255, 0.7); /* Semi-transparent background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none; /* Allows interaction with the map below, if desired */
+}
+/* The actual spinner animation */
+.loaderII {
+    border: 3px solid #f3f3f3; /* Light grey */
+    border-top: 3px solid #3498db; /* Blue spinner color */
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    animation: spin 1.25s linear infinite;
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+.spinner-visible {
+  display: block;
+}
+/* Class to hide the overlay */
+.spinner-hidden {
+    display: none !important;
+}

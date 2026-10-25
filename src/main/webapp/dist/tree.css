@@ -1,0 +1,695 @@
+/* ========================================================================= */
+/* ─── STATE-OF-THE-ART UNIFORM APPLICATION WORKSPACE FRAMEWORK ───         */
+/* ========================================================================= */
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    color: #1e293b;
+    background-color: #f1f5f9; /* Slate gray workspace background */
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Master Layout Flex Workspace Wrapper Container */
+.app-workspace-container {
+    display: flex;
+    flex: 1;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+/* ─── SIDEBAR NAVIGATION HOOKS (20% Uniform Sizing Scale) ─── */
+.app-navigation-sidebar {
+    width: 14%;
+    min-width: 250px;
+    max-width: 320px;
+    background-color: #06402B; /* Unified Forest Green Corporate Core */
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    box-shadow: 4px 0 10px rgba(15, 23, 42, 0.06);
+    z-index: 10;
+    padding: 20px 0;
+}
+
+.sidebar-app-title {
+    padding: 0 20px 15px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    margin-bottom: 15px;
+}
+.sidebar-app-title h2 {
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 700;
+    margin: 0;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Accordion Menu Group Containers */
+.menu-group-container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+.menu-group-header {
+    font-size: 11px;
+    text-transform: uppercase;
+    color: #a3e635; /* Lime green group accent */
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    padding: 10px 20px 6px 20px;
+    cursor: default;
+}
+
+/* Modern Dynamic Sidebar Action Controls */
+.sidebar-nav-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 20px;
+    color: #cbd5e1;
+    text-decoration: none;
+    font-size: 13.5px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border-left: 3px solid transparent;
+}
+.sidebar-nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.06);
+    color: #ffffff;
+    border-left-color: #a3e635;
+}
+.sidebar-nav-link.active_li, .sidebar-nav-link.active-node {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    font-weight: 600;
+    border-left-color: #a3e635;
+}
+
+/* Nested Submenu Spacing Alignment */
+.nested-submenu-items {
+    padding-left: 15px;
+    background-color: rgba(0, 0, 0, 0.12);
+}
+
+/* ─── MAIN DISPLAY WINDOW BLOCK (80% Uniform Sizing Scale) ─── */
+.main-window-workspace {
+    flex: 1;
+    margin-top:-0.65%;
+    height: 100%;
+    padding: 25px;
+    box-sizing: border-box;
+    overflow-y: auto; /* Adds scrolling inside main workspace without breaking the sidebar layout */
+    background: radial-gradient(circle at 90% 90%, rgba(6, 64, 43, 0.015) 0%, transparent 60%), #f8fafc;
+}
+
+/* Unified Main Header Watermark Card */
+.workspace-view-header {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    padding: 12px 20px;
+    margin-bottom: 25px;
+    box-shadow: 0 1px 3px rgba(15,23,42,0.02);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* ─── GENERIC GLOBAL ALIGNMENTS & TRANSITIONS ─── */
+.main-content {
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    margin: 0 auto;
+    width: 100%;
+    max-width: 1100px;
+    box-sizing: border-box;
+}
+
+/* Dropdown Field Adjustments */
+.form-control.dropdown_size {
+    height: 30px;
+    font-size: 13px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    border: 1px solid #cbd5e1;
+}
+/* End of body CSS*/
+
+/* for Login page */
+/* Bordered form */
+.titbarnav{
+margin-top: -0.17%; 
+padding-top: 0%;
+position: relative;
+margin-right: 0.95%;	
+}
+.titbarnav ul{
+	list-style-type: none;
+	float: right;
+	
+}
+.titbarnav ul li{
+float: left;
+}
+.titbarnav ul li a{
+	color: #000;
+	padding:  0 5px;
+	
+}
+
+/* Map Layer CSS*/
+/* Absolute Sidebar Layout Matrix Baseline */
+    .portal-sliding-sidebar {
+        width:16% !important; /* Locks width uniformly to fix layout scale variables */
+        background-color: #06402B;
+        height: 94.8%;
+        position: fixed;
+        z-index: 9999;
+        overflow-y: auto;
+        box-sizing: border-box;
+        box-shadow: 4px 0 15px rgba(15, 23, 42, 0.2);
+        /* Hardware accelerated sliding transitions */
+        transform: translateX(0);
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    }
+    
+    /* CRITICAL OVERRIDE GUARD: Smoothly slides the panel 100% out of the viewport */
+    .portal-sliding-sidebar.sidebar-collapsed {
+        transform: translateX(-100%) !important;
+    }
+
+    /* Floating toggle control widget button layout */
+    .sidebar-toggle-trigger {
+        opacity:0.15;
+        position: fixed;
+        left: 248px; /* Aligns button right outside the sidebar edge */
+        top: 44px;
+        z-index: 10000;
+        background: #06402B;
+        color: #ffffff;
+        border: 1px solid rgba(255,255,255,0.2);
+        border-radius: 4px;
+        width: 36px;
+        height: 36px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1), background 0.2s !important;
+    }
+    .sidebar-toggle-trigger:hover {
+        background: #042d1e;
+        color: #a3e635;
+    }
+    
+    /* Shifts the floating button back near the screen edge when collapsed */
+    .sidebar-toggle-trigger.toggle-shifted {
+        left: 15px !important;
+    }
+
+    .filter-accordion-card summary::-webkit-details-marker {
+        display: none;
+    }
+    
+    /*Pop up table that contain well attributes with the download button*/
+    /* Premium Look for Inline Leaflet Data Table Popups */
+.premium-map-popup .leaflet-popup-content-wrapper {
+    background: #ffffff !important;
+    color: #1e293b !important;
+    border-radius: 8px !important;
+    padding: 8px !important;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1) !important;
+    border: 1px solid #cbd5e1 !important;
+    max-width: 320px !important;
+}
+.premium-map-popup .popup-data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 8px;
+    font-size: 12px;
+}
+.premium-map-popup .popup-data-table td {
+    padding: 4px 6px;
+    border-bottom: 1px solid #e2e8f0;
+}
+.premium-map-popup .popup-download-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    height: 28px;
+    margin-top: 10px;
+    background-color: #06402B;
+    color: #ffffff !important;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 11.5px;
+    border-radius: 4px;
+    text-align: center;
+    transition: background 0.2s;
+}
+.premium-map-popup .popup-download-btn:hover {
+    background-color: #042d1e;
+} 
+/* Custom Elegant Styling for Map Tooltips */
+.custom-map-tooltip {
+    background: rgba(15, 23, 42, 0.9) !important; /* Premium dark slate with slight opacity */
+    backdrop-filter: blur(4px) !important;       /* Modern background blur effect */
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    border-radius: 6px !important;
+    padding: 2px 14px !important;
+    color: #f8fafc !important;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -4px rgba(0, 0, 0, 0.3) !important;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+}
+
+/* Styled Arrow Pointer pointing to the borehole marker circle */
+.custom-map-tooltip::before {
+    border-top-color: rgba(15, 23, 42, 0.9) !important;
+}
+i.multi-digit-badge {
+  /* Remove default italics */
+  font-style: normal; 
+  
+  /* Layout alignment */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  
+  /* Dynamic sizing for multi-digits */
+  height: 12px;
+  min-width: 12px; /* Acts as a perfect circle if it's only 1 digit */
+  padding: 0 2px;  /* Left/right breathing room for 3-5 digits */
+  
+  /* Font styling */
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 11px;
+  color: #9fa5ac;
+  letter-spacing: 0.5px;
+  
+  /* Visual depth */
+  box-shadow: 0 4px 12px rgba(168, 85, 247, 0.1);
+}
+
+/*End of Map Layer CSS*/
+/* =========================================================================
+   ─── ENTERPRISE MOBILE RESPONSIVENESS AND ADAPTIVE GRID VIEWPORTS ───
+   ========================================================================= */
+
+/* 📊 1. Base Framework Overrides for Fluid Widths */
+.main-content, .table_div, .WCRFormDiv {
+    box-sizing: border-box !important;
+}
+
+/* 📱 2. Media Queries Layer targeting Tablets and Mobile Screens (Widths <= 1024px) */
+@media screen and (max-width: 1024px) {
+    
+    /* Force full-bleed map workspace grid layout execution */
+    #map{
+        width: 100% !important;
+        height: 60vh !important; /* Drops map height slightly on mobile to give tables breathing room */
+        position: relative !important;
+        top: 0 !important;
+        left: 0 !important;
+    }
+
+    /* Transform the floating dynamic side-panel into an elegant bottom-sheet menu module */
+    #dynamic-well-dashboard-sheet {
+        position: fixed !important;
+        right: 0 !important;
+        bottom: 0 !important;
+        top: auto !important; /* Releases top pinning axis properties */
+        width: 100% !important; /* Stretches completely across the mobile horizontal pane bounds */
+        height: 50vh !important; /* Occupies exactly half the viewport height estate */
+        max-height: 50vh !important;
+        border-radius: 12px 12px 0 0 !important; /* Modern rounded top crown */
+        box-shadow: 0 -10px 25px rgba(15, 23, 42, 0.15) !important;
+        transform: translateY(55vh) !important; /* Animates smoothly along the vertical Y-axis instead of X */
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        z-index: 10010 !important;
+    }
+
+    /* Adjust the slide-in trigger animation state values to handle the bottom-sheet layout */
+    #dynamic-well-dashboard-sheet[style*="translateX(0)"],
+    #dynamic-well-dashboard-sheet[style*="matrix"] {
+        transform: translateY(0) !important;
+    }
+
+    /* 📝 3. Panel A, B, and C Data Tables Optimization Layer */
+    #pro_displwe, #pro_displbu, #pro_displgg, .add_param {
+        width: 100% !important;
+        margin-left: 0 !important; /* Flushes out legacy desktop margin offsets instantly */
+        margin-top: 15px !important;
+        padding: 10px !important;
+    }
+
+    /* Force tables to become horizontally scrollable instead of clipping at device margins */
+    .wellReport, #DPTHDataTeble, #OperatorRequestTable, .table_ {
+        display: block !important;
+        width: 100% !important;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* 🔐 4. Login Interface Responsiveness Layout */
+    #loginForm, .login-container-card {
+        width: 90% !important;
+        max-width: 400px !important;
+        margin: 40px auto !important;
+        padding: 20px !important;
+        float: none !important;
+    }
+
+    /* Stack form rows vertically with 100% width selectors */
+    .WCRFormDiv table, .add_param table {
+        width: 100% !important;
+        margin-left: 0 !important;
+    }
+
+    .WCRFormDiv tr, .WCRFormDiv td {
+        display: block !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+        text-align: left !important;
+        padding: 6px 0 !important;
+    }
+
+    .WCRFormDiv select, .WCRFormDiv input[type="text"], .WCRFormDiv input[type="search"] {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin-left: 0 !important;
+        margin-top: 4px !important;
+    }
+    
+    /* Re-center central save action button links layout grid */
+    #addparam_button {
+        margin-left: 0 !important;
+        width: 100% !important;
+    }
+
+    /* 🗺️ 5. Leaflet Mobile Widgets Compression Map */
+    .leaflet-control-layers {
+        margin-top: 50px !important; /* Shims controls below mobile browser view address bars */
+    }
+    
+    .unified-spatial-panel {
+        padding: 4px 8px !important;
+        gap: 8px !important;
+        max-width: 90% !important;
+    }
+}
+
+.WCRFormDiv{
+	width: 55%; 
+	margin-left:6%;
+	background-color: #f5f5f5;
+	position: absolute;
+	padding: 5px;
+	border-radius: 8px; /* Rounded corners */
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  }
+.data_table{
+	margin-bottom: -1.5%
+	}
+	.table_div{
+	margin-left: 0%;
+	}
+	.div_main_content{
+	text-align: right;
+	}
+	.filter_all{
+	margin-top: 0%;
+	width:45%;
+	min-width:500px;
+	background-color: white;
+	margin-left: 10%;
+	}
+	.filter_region{
+	margin-top: 0%;
+	width:35%;
+	min-width:350px;
+	background-color: white;
+	margin-left: 65%;
+	}
+	.dropdown_size{
+	max-width: 100px;
+	border-style: none;
+	margin-left:0%;
+	text-align: center;
+    background-color: #28527b;
+    color: white;
+	}
+	.option_css{
+	background-color: white;
+	color: black;
+	}
+form {
+  width: 60%;
+  border: 3px solid #f1f1f1;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 15px;
+  margin-bottom: 5px;
+  text-align: center;
+}
+
+/* Full-width inputs */
+input[type=text], input[type=password],input[type=date],input[type=email],input[type=tel]{
+  width: 300px;
+  padding: 8px 20px;
+  margin-top: 5px;
+  margin-left: auto;
+  margin-right:auto;
+  display: inline-block;
+  border: 2px solid #b4b4b4;
+  box-sizing: border-box; 
+  border-radius: 4px; /* Rounded corners */
+}
+input[type=submit],input[type=reset]{
+  margin-left: auto;
+  margin-right:auto;
+  display: inline-block;
+  border: 2px solid #b4b4b4;
+  box-sizing: border-box; 
+  border-radius: 4px; /* Rounded corners */
+}
+input[type=submit]:hover{
+background-color: #e3e3e3;
+}
+input[type=reset]:hover{
+background-color: #e3e3e3;
+}
+
+select{
+  margin-left: auto;
+  margin-right:auto;
+  display: inline-block;
+  box-sizing: border-box; 
+  border-radius: 4px; /* Rounded corners */	
+}
+border{
+border-radius: 4px; /* Rounded corners */		
+}
+.container {
+	width:96%;
+	margin-left: auto;
+    margin-right: auto;
+	background-color: #ceffce;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	border-radius: 8px; /* Rounded corners */	
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+/* Set a style for all buttons */
+button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 8px 20px;
+  margin: 6px 0;
+  border: none;
+  cursor: pointer;
+  width: 12%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Add a hover effect for buttons */
+button:hover {
+  opacity: 0.8;
+}
+
+/* Extra style for the cancel button (red) */
+.cancelbtn {
+  width: 12%;
+  padding: 8px 20px;
+  background-color: #f44336;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Center the avatar image inside this container */
+.imgcontainer {
+  text-align: center;
+  margin-top: -5px;
+}
+
+/* Avatar image */
+img.avatar {
+  width: 150px;
+  border-radius: 36%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top:-1%;
+  margin-bottom:0%;
+  background-color: white;
+  
+}
+
+/* Add padding to containers */
+.container {
+  padding: 10px;
+}
+
+/* The "Forgot password" text */
+span.psw {
+  float: right;
+  padding-top: 10px;
+}
+
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 300px) {
+  span.psw {
+    display: block;
+    float: none;
+  }
+  .cancelbtn {
+    width: 300px;
+  }
+}
+/*Upload file form*/
+
+div.formup {
+    width: 98%;
+	margin-left: auto;
+    margin-right: auto;
+	background-color: #ffffff;
+	text-align: center;
+}
+table.center {
+	width: 90%;
+    margin-left:auto; 
+    margin-right:auto;
+  }
+  th, td {
+	text-align: left;
+}
+
+@-webkit-keyframes fade {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
+
+@keyframes fade {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
+/* On smaller screens, decrease text size */
+@media only screen and (max-width: 300px) {
+  .text {font-size: 11px}
+}
+.rs-label {
+    position: relative;
+    transform-origin: center center;
+    display: block;
+    width: 12px;
+    height: 12px;
+    background: transparent;
+    text-align: center;
+    font-weight: bold;
+    padding-top: -1px;
+    margin-top: -10px;
+    margin-left: -1px;
+    left: attr(value);
+    color: #fff;
+    font-style: normal;
+    font-weight: normal;
+    line-height: normal;
+    font-size: 12px;
+}
+table.updateData input[type="text"]{
+	height: 23px;
+	width: 240px;
+	margin-left: auto;
+	margin-right:auto;
+	margin-top:0.5px;
+	display: inline-block;
+	border: 1px solid #b4b4b4;
+	box-sizing: border-box; 
+	border-radius: 4px; /* Rounded corners */
+}
+
+
+
+/* Full-coverage Map Loader Screen Mask Overlay */
+.map-loading-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(248, 250, 252, 0.95); /* Soft slate with 95% opacity matching background profiles */
+    backdrop-filter: blur(4px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999; /* Forces the loading mask to sit on top of everything inside map space */
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+/* State-of-the-Art Material Spinning Tracker Widget */
+.map-spinner-widget {
+    width: 45px;
+    height: 45px;
+    border: 4px solid #e2e8f0;
+    border-top: 4px solid #06402B; /* Premium Corporate Accent Color */
+    border-radius: 50%;
+    animation: pipelineSpin 1s infinite linear;
+}
+
+.map-loading-text {
+    margin-top: 15px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #475569;
+    letter-spacing: 0.3px;
+}
+
+@keyframes pipelineSpin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Smooth Fade Away Trigger Utilities Class */
+.map-loader-hidden {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+}
+

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"  
+       xmlns:sec="http://www.springframework.org/schema/security"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/security
+	http://www.springframework.org/schema/security/spring-security.xsd">
+	
+	 <!-- Define the BCryptPasswordEncoder bean -->
+    <bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+    
+	<!-- Authorization Configuration-->
+	  <sec:http pattern="/download" security="none"/>
+	   <sec:http auto-config="true">
+		<sec:intercept-url pattern="/admin" access="hasRole('ADMIN')" requires-channel="https"/>
+        <sec:intercept-url pattern="/user/**" access="hasAnyRole('USER', 'ADMIN')" />
+		<sec:access-denied-handler error-page="/login?denay" />
+		<sec:form-login 
+            login-page="/login" 
+            default-target-url="/home" 
+            authentication-failure-forward-url="/login?error"
+            username-parameter="username"
+            password-parameter="password" />
+         <sec:logout logout-success-url="/login?logout"/> 
+        <!-- enable csrf protection -->
+        <sec:csrf disabled="true" />
+	</sec:http>
+	<!-- Authentication Configuration-->
+	 <sec:authentication-manager>
+        <sec:authentication-provider>
+            <sec:jdbc-user-service data-source-ref="dataSource"
+              users-by-username-query="select username,password,enabled from gw_db_schema.db_user where username=?"
+              authorities-by-username-query="select authority,username from gw_db_schema.authorities where username=?"/>
+        <sec:password-encoder ref="passwordEncoder"/>
+        </sec:authentication-provider>
+    </sec:authentication-manager>
+    
+	<!-- Defined DataSource for the bean is PostgreSQL  -->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="org.postgresql.Driver" />
+        <property name="url" value="jdbc:postgresql://localhost:5432/AAWSA-gDB" />
+        <property name="username" value="postgres" />
+        <property name="password" value="MmumDdostyab" />
+    </bean>
+	
+	<!-- 
+	 <sec:authentication-manager erase-credentials="false">
+		<sec:authentication-provider ref="ldapAuthProvider"/>
+	</sec:authentication-manager>
+	<bean id="ldapAuthProvider"
+	class="org.springframework.security.ldap.authentication.ad.ActiveDirectoryLdapAuthenticationProvider">
+	<constructor-arg value="" />
+	<constructor-arg value=""/>
+	</bean>
+	 -->
+</beans>
